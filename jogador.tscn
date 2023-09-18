@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://qylddxtem15t"]
+
+[ext_resource type="Script" path="res://jogador.gd" id="1_14b7j"]
+[ext_resource type="Texture2D" uid="uid://dp7xhcfcpfmn1" path="res://art/playerGrey_walk1.png" id="1_jstxf"]
+[ext_resource type="Texture2D" uid="uid://cn041y8v6a1w8" path="res://art/playerGrey_walk2.png" id="2_n5443"]
+[ext_resource type="Texture2D" uid="uid://c0nxowkp7hau" path="res://art/playerGrey_up1.png" id="4_6wki5"]
+[ext_resource type="Texture2D" uid="uid://b0uj26rrco3n7" path="res://art/playerGrey_up2.png" id="5_5ygai"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wqtqc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_jstxf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_n5443")
+}],
+"loop": true,
+"name": &"andando",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_6wki5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_5ygai")
+}],
+"loop": true,
+"name": &"cima",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2cy57"]
+radius = 54.0
+height = 136.0
+
+[node name="jogador" type="Area2D"]
+position = Vector2(95, 74)
+script = ExtResource("1_14b7j")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_wqtqc")
+animation = &"cima"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.5, 0.5)
+shape = SubResource("CapsuleShape2D_2cy57")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
